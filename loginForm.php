@@ -2,11 +2,13 @@
 session_start();
 include 'ntuaris.php';
 echo $header;
-echo getNavBar('gr');
-if (!isset($_SESSION['ntuarisUserID'])) {
-	echo getLoginForm('gr');
+$user = new User();
+echo $user->getNavBar();
+
+if (!$user->isConnected()) {
+	echo $user->getLoginForm();
 } else {
-	echo getMenu($_SESSION['ntuarisUserID']);
+	echo $user->getMenu();
 }
 echo getFooter('gr');
 ?>

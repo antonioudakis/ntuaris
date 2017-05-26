@@ -2,15 +2,16 @@
 session_start();
 include 'ntuaris.php';
 echo $header;
-echo getNavBar('gr');
-if (!isset($_SESSION['ntuarisUserID'])) {
+$user = new User();
+echo $user->getNavBar();
+if (!$user->isConnected()) {
 	echo "	<div class=\"alert alert-danger alert-dismissable fade in\">
 					<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
 					<p id=\"msgtext\"><strong>Σφάλμα!</strong> Πρέπει πρώτα να συνδεθείτε στο σύστημα</p>
 				</div>";
-	echo getLoginForm('gr');
+	echo $user->getLoginForm();
 } else {
-	echo getUpdateUserForm($_SESSION['ntuarisUserID']);
+	echo $user->getUpdateUserForm();
 }
 echo getFooter('gr');
 ?>

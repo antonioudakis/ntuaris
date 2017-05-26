@@ -4,7 +4,8 @@ session_unset();
 session_destroy(); 
 include 'ntuaris.php';
 echo $header;
-echo getNavBar('gr');
+$user = new User();
+echo $user->getNavBar();
 echo sendEmailForm(0);
 echo getFooter('gr');
 ?>

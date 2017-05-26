@@ -143,248 +143,7 @@ function getFooter($lang) {
 	return $footer;
 }
 
-function getLoginForm($lang) {
-	global $host;
-	if($lang == 'eng') {
-		$loginForm = "	<div class=\"container text-center\">
-							<div class=\"well well-sm row\">
-								<div class=\"col-xs-4 text-right\">
-									<img src=\"./img/pyrforos.png\" class=\"img-circle\" alt=\"pyrforos\" width=\"45\" height=\"45\">
-								</div>
-								<div class=\"col-xs-8 text-left\">
-									<h4>Online Services of N.T.U.A</h4>
-								</div>
-							</div>
-						</div>
-
-						<div class=\"row\">
-							<div class=\"col-xs-2\"></div>
-							<div class=\"col-xs-8\">
-								<h4>Login</h4></br>
-								<form action=\"http://".$host."login.php\" method=\"post\">
-									<div class=\"form-group\">
-										<label for=\"username\"><span class=\"glyphicon glyphicon-user\"></span> Username:</label>
-										<input type=\"text\" class=\"form-control\" id=\"username\" placeholder=\"Enter Username\" size = \"35\" name = \"username\" value = \"".getCookie('ntuarisUser')."\">
-									</div>
-									<div class=\"form-group\">
-										<label for=\"pwd\"><span class=\"glyphicon glyphicon-lock\"></span> Password:</label>
-										<input type=\"password\" class=\"form-control\" id=\"pwd\" placeholder=\"Enter Password\" size = \"25\" name = \"pwd\" value = \"".getCookie('ntuarisPwd')."\">
-									</div>
-									<div class=\"checkbox\">
-										<label><input type=\"checkbox\" name =\"remember\"".setChecked('ntuarisUser')."> Remember me</label>
-									</div>
-									<div>
-										<a href=\"http://".$host."usernamereminder.php\">Username Reminder</a></br>
-										<a href=\"http://".$host."pwdreminder.php\">Reset Password</a>
-									</div>
-									<div align=\"right\">
-										<button type=\"submit\" class=\"btn btn-info\">Login</button>
-									</div>
-								</form>
-							</div>
-							<div class=\"col-xs-2\"></div>
-						</div>";
-	} else {
-		$loginForm = "	<div class=\"container text-center\">
-							<div class=\"well well-sm row\">
-								<div class=\"col-xs-4 text-right\">
-									<img src=\"./img/pyrforos.png\" class=\"img-circle\" alt=\"pyrforos\" width=\"45\" height=\"45\">
-								</div>
-								<div class=\"col-xs-8 text-left\">
-									<h4>Ηλεκτρονικές Υπηρεσίες Ε.Μ.Π.</h4>
-								</div>
-							</div>
-						</div>
-
-						<div class=\"row\">
-							<div class=\"col-xs-2\"></div>
-							<div class=\"col-xs-8\">
-								<h4>Σύνδεση Χρήστη</h4></br>
-								<form action=\"http://".$host."login.php\" method=\"post\">
-									<div class=\"form-group\">
-										<label for=\"username\"><span class=\"glyphicon glyphicon-user\"></span> Όνομα Χρήστη:</label>
-										<input type=\"text\" class=\"form-control\" id=\"username\" placeholder=\"Εισαγωγή όνομα χρήστη (username)\" size = \"35\" name = \"username\" value = \"".getCookie('ntuarisUser')."\">
-									</div>
-									<div class=\"form-group\">
-										<label for=\"pwd\"><span class=\"glyphicon glyphicon-lock\"></span> Συνθηματικό:</label>
-										<input type=\"password\" class=\"form-control\" id=\"pwd\" placeholder=\"Εισαγωγή συνθηματικού\" size = \"25\" name = \"pwd\" value = \"".getCookie('ntuarisPwd')."\">
-									</div>
-									<div class=\"checkbox\">
-										<label><input type=\"checkbox\" name =\"remember\"".setChecked('ntuarisUser')."> Να με θυμάσαι</label>
-									</div>
-									<div>
-										<a href=\"http://".$host."usernamereminder.php\">Υπενθύμιση Ονόματος Χρήστη</a></br>
-										<a href=\"http://".$host."pwdreminder.php\">Επαναφορά Συνθηματικού</a>
-									</div>
-									<div align=\"right\">
-										<button type=\"submit\" class=\"btn btn-info\">Σύνδεση</button>
-									</div>
-								</form>
-							</div>
-							<div class=\"col-xs-2\"></div>
-						</div>";
-	} 
-	return $loginForm;	
-}
 				
-function getNavBar($lang) {
-	global $host;
-	if ($lang == 'eng') {
-		$navbar = "	<nav class=\"navbar navbar-inverse\">
-								<div class=\"container-fluid\">
-									<div class=\"navbar-header\">
-										<button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#myNavbar\">
-											<span class=\"icon-bar\"></span>
-											<span class=\"icon-bar\"></span>
-											<span class=\"icon-bar\"></span>                        
-										</button>
-										<a class=\"navbar-brand\" href=\"http://users.ntua.gr/tant/ntuaris/\">ntuaris</a>
-									</div>
-								<div class=\"collapse navbar-collapse\" id=\"myNavbar\">
-									<ul class=\"nav navbar-nav navbar-right\">";
-		if (!isset($_SESSION['ntuarisUserID'])) {
-				$navbar = $navbar."	<li><a href=\"http://".$host."loginFormEng.php\"><span class=\"glyphicon glyphicon-log-in\"></span> Sign in </a></li>
-												<li><a href=\"http://".$host."signUpForm.php\"><span class=\"glyphicon glyphicon-file\"></span> Sign up </a></li>
-												<li><a href=\"http://".$host."loginForm.php\"><img src=\"./img/Greece-icon.png\" ></li></a></li>
-											</ul>
-										</div>
-									</div>
-								</nav>";
-		} else {
-			global $pwdModalEng;
-			$navbar = $navbar."	<li class = \"dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"http://".$host."login.php\"><span class=\"glyphicon glyphicon-user\"></span> " .$_SESSION['ntuarisUser'] ." <span class=\"caret\"></span></a><ul class=\"dropdown-menu\">
-												<li><a href=\"http://".$host."updateUserForm.php\"><span class=\"glyphicon glyphicon-pencil\"> Append </span></a></li>
-												<li><a href=\"#\" data-toggle=\"modal\" data-target=\"#pwdModal\"><span class=\"glyphicon glyphicon-pawn\"> Change Password </span></a></li>
-												<li><a href=\"http://".$host."logout.php\"><span class=\"glyphicon glyphicon-log-out\"> Logout </span></a></li></ul></li>
-											<li><a href=\"http://".$host."indexEng.html\"><img src=\"./img/Greece-icon.png\" ></li></a></li>
-										</ul>
-									</div>
-								</div>
-							</nav>";
-			$navbar = $navbar.$pwdModalEng;
-		}
-	} else {
-		$navbar = "	<nav class=\"navbar navbar-inverse\">
-								<div class=\"container-fluid\">
-									<div class=\"navbar-header\">
-										<button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#myNavbar\">
-											<span class=\"icon-bar\"></span>
-											<span class=\"icon-bar\"></span>
-											<span class=\"icon-bar\"></span>                        
-										</button>
-										<a class=\"navbar-brand\" href=\"http://users.ntua.gr/tant/ntuaris/\">ntuaris</a>
-									</div>
-								<div class=\"collapse navbar-collapse\" id=\"myNavbar\">
-									<ul class=\"nav navbar-nav navbar-right\">";
-		if (!isset($_SESSION['ntuarisUserID'])) {
-				$navbar = $navbar."	<li><a href=\"http://".$host."loginForm.php\"><span class=\"glyphicon glyphicon-log-in\"></span> Σύνδεση </a></li>
-												<li><a href=\"http://".$host."signUpForm.php\"><span class=\"glyphicon glyphicon-file\"></span> Εγγραφή </a></li>
-												<li><a href=\"http://".$host."loginFormEng.php\"><img src=\"./img/United-Kingdom-icon.png\" ></li></a></li>
-											</ul>
-										</div>
-									</div>
-								</nav>";
-		} else {
-			global $pwdModal;
-			$navbar = $navbar."	<li class = \"dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"http://".$host."login.php\"><span class=\"glyphicon glyphicon-user\"></span> " .$_SESSION['ntuarisUser'] ." <span class=\"caret\"></span></a><ul class=\"dropdown-menu\">
-												<li><a href=\"http://".$host."updateUserForm.php\"><span class=\"glyphicon glyphicon-pencil\"> Επεξεργασία </span></a></li>
-												<li><a href=\"#\" data-toggle=\"modal\" data-target=\"#pwdModal\"><span class=\"glyphicon glyphicon-pawn\"> Αλλαγή Συνθηματικού </span></a></li>
-												<li><a href=\"http://".$host."logout.php\"><span class=\"glyphicon glyphicon-log-out\"> Έξοδος </span></a></li></ul></li>
-											<li><a href=\"http://".$host."indexEng.html\"><img src=\"./img/United-Kingdom-icon.png\" ></li></a></li>
-										</ul>
-									</div>
-								</div>
-							</nav>";
-			$navbar = $navbar.$pwdModal;
-		}
-	}
-	return $navbar;
-}
-
-function getMenu($id) {
-	global $host,$dbhost, $dbuser, $dbpwd, $dbname, $footer;
-
-	// Check connection
-	$conn = mysqli_connect($dbhost, $dbuser, $dbpwd, $dbname);
-
-	if (!$conn) {
-		echo $footer;
-		die("Connection failed\n");
-	}
-	
-	$strSQL = "select * from users where id = ".$id;
-	$result = mysqli_query($conn, $strSQL);
-	if (mysqli_num_rows($result) == 0) {
-		$menu = "	<div class=\"alert alert-danger alert-dismissable fade in\">
-							<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
-							<p id=\"msgtext\"><strong>Σφάλμα!</strong> Δεν υπάρχει χρήστης με id = ".$id."</p>
-						</div>";
-	} else {
-		$row = mysqli_fetch_assoc($result);
-		if (($row['role']==1)||($row['role']==2)||($row['role']==3)) {
-		
-			$menu = "	<div class=\"container text-center\">
-								<div class=\"well well-sm row\">
-									<div class=\"col-xs-4 text-right\">
-										<img src=\"./img/pyrforos.png\" class=\"img-circle\" alt=\"pyrforos\" width=\"45\" height=\"45\">
-									</div>
-									<div class=\"col-xs-8 text-left\">
-										<h4>Ηλεκτρονικές Υπηρεσίες Ε.Μ.Π.</h4>
-									</div>
-								</div>
-								<div class=\"container-fluid row\">";
-			if ($row['role']!=2) {
-				$menu = $menu."	<div class=\"col-xs-4 text-right\">
-												<a href=\"http://".$host."underconstruction.php\"><img src=\"./img/statistics.jpg\" class=\"img-thumbnail\" height=\"65\" width=\"65\" alt=\"Statistics\"></a>
-											</div>
-											<div class=\"col-xs-8 text-left\">
-												<h4><a href=\"http://".$host."underconstruction.php\">Στατιστικά Στοιχεία Φοιτητολογίου</a></h4>
-												</br>
-											</div>";
-			}
-			if ($row['role']!=1) {
-				$menu = $menu."	<div class=\"col-xs-4 text-right\">
-												<a href=\"http://dasta1.ece.ntua.gr:8080/dastaReports\"><img src=\"./img/dasta.jpg\" class=\"img-thumbnail\" height=\"65\" width=\"65\" alt=\"Dasta\"></a>
-											</div>
-											<div class=\"col-xs-8 text-left\">
-												<h4><a href=\"http://dasta1.ece.ntua.gr:8080/dastaReports\">Δομή Απασχόλησης & Σταδιοδρομίας</a></h4>
-												</br>
-											</div>
-											<div class=\"col-xs-4 text-right\">
-												<a href=\"http://".$host."underconstruction.php\"><img src=\"./img/registration.jpg\" class=\"img-thumbnail\" height=\"65\" width=\"65\" alt=\"Registration\"></a>
-											</div>
-											<div class=\"col-xs-8 text-left\">
-												<h4><a href=\"http://".$host."underconstruction.php\">Εγγραφές & Δηλώσεις Μαθημάτων</a></h4>
-												</br>
-											</div>
-											<div class=\"col-xs-4 text-right\">
-												<a href=\"http://".$host."underconstruction.php\"><img src=\"./img/certificate.jpg\" class=\"img-thumbnail\" height=\"65\" width=\"65\" alt=\"Certificate\"></a>
-											</div>
-											<div class=\"col-xs-8 text-left\">
-												<h4><a href=\"http://".$host."underconstruction.php\">Αιτήσεις Έκδοσης Πιστοποιητικών</a></h4>
-												</br>
-											</div>
-											<div class=\"col-xs-4 text-right\">
-												<a href=\"http://praktiki.ntua.gr/site/Eisodos.html\"><img src=\"./img/praxis.jpg\" class=\"img-thumbnail\" height=\"65\" width=\"65\" alt=\"Praxis\"></a>
-											</div>
-											<div class=\"col-xs-8 text-left\">
-												<h4><a href=\"http://praktiki.ntua.gr/site/Eisodos.html\">Πρακτική Άσκηση Φοιτητών</a></h4>
-												</br>
-											</div>";
-			}
-			$menu = $menu."		</div>
-										</div>";
-		} else {
-			$menu ="	<div class=\"alert alert-danger alert-dismissable fade in\">
-								<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
-								<p id=\"msgtext\"><strong>Σφάλμα!</strong> Δεν ορίστηκε αποδεκτός ρόλος στον χρήστη (Υπάλληλος - Φοιτητής - Υπάλληλος & Φοιτητής</p>
-							</div>";
-		}
-	} 
-	mysqli_close($conn);
-	return $menu;
-}
-
 function sendEmailForm($type) {
 	global $host;
 	$emailForm = "	<div id=\"msg\" class=\"alert alert-danger alert-dismissable fade in\" style=\"display:none\">
@@ -565,150 +324,6 @@ function getSignUpForm($type){
 	return $signUpForm;
 }
 
-function getUpdateUserForm($id){
-	global $host,$dbhost, $dbuser, $dbpwd, $dbname, $footer;
-	
-	// Check connection
-	$conn = mysqli_connect($dbhost, $dbuser, $dbpwd, $dbname);
-
-	if (!$conn) {
-		session_unset(); 
-		session_destroy(); 
-		echo $footer;
-		die("Connection failed\n");
-	}
-	
-	$strSQL = "select * from users where id = ".$id;
-	$result = mysqli_query($conn, $strSQL);
-	if (mysqli_num_rows($result) == 0) {
-		$menu = "	<div class=\"alert alert-danger alert-dismissable fade in\">
-							<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
-							<p id=\"msgtext\"><strong>Σφάλμα!</strong> Δεν υπάρχει χρήστης με id = ".$id."</p>
-						</div>";
-	} else {
-		$row = mysqli_fetch_assoc($result);
-		$updateUserForm= "	
-							<div id=\"msg\" class=\"alert alert-danger alert-dismissable fade in\" style=\"display:none\">
-								<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
-								<p id=\"msgtext\"></p>
-							</div>
-							<div class=\"container\">
-								<div>
-									<div><h4><p>Ενημέρωση Στοιχείων Χρήστη</p></h4></div>
-									<div class=\"well\">
-										<form action=\"http://".$host."updateUser.php\" method=\"post\">
-											<div class=\"form-group\">
-												<label for=\"username\">Username χρήστη:</label>
-												<input type=\"text\" class=\"form-control\" id=\"username\" placeholder=\"Εισαγωγή username\" name = \"username\" value = \"".$row['username']."\">
-											</div>
-											<div class=\"form-group\">
-												<label for=\"epvn\">Επώνυμο χρήστη:</label>
-												<input type=\"text\" class=\"form-control\" id=\"epvn\" placeholder=\"Εισαγωγή Επωνύμου\" name = \"epvn\" onkeyup=\"upperCase('epvn')\" value = \"".$row['epvn']."\">
-											</div>
-											<div class=\"form-group\">
-												<label for=\"onoma\">Όνομα χρήστη:</label>
-												<input type=\"text\" class=\"form-control\" id=\"onoma\" placeholder=\"Εισαγωγή Ονόματος\" name = \"onoma\" onkeyup=\"upperCase('onoma')\" value = \"".$row['onoma']."\">
-											</div>
-											<div class=\"form-group\">
-												<label for=\"email\">Email χρήστη:</label>
-												<input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"Εισαγωγή Email\" name = \"email\" onchange=\"emailValidation('email') \" value = \"".$row['email']."\" autocomplete=\"on\">
-											</div>
-											<div class=\"form-group\">
-												<label for=\"role\">Ρόλος χρήστη:</label>
-												</br>
-												<label class=\"radio-inline\"><input type=\"radio\" id =\"role\" name=\"role\" value = \"1\" ";
-		if ($row['role']==1) {
-			$updateUserForm .= "checked";
-		}
-		$updateUserForm .= " onclick=\"display('k_tm','none');display('k_tm_label','none');display('k_f','none');display('k_f_label','none');clearInput('k_f')\">Υπάλληλος</label>
-												<label class=\"radio-inline\"><input type=\"radio\" id =\"role\" name=\"role\" value = \"2\" ";
-		if ($row['role']==2) {
-			$updateUserForm .= "checked";
-		}
-		$updateUserForm .= " onclick=\"display('k_tm','block');display('k_tm_label','block');display('k_f','block');display('k_f_label','block');\">Φοιτητής</label>
-												<label class=\"radio-inline\"><input type=\"radio\" id =\"role\" name=\"role\" value = \"3\" ";
-		if ($row['role']==3) {
-			$updateUserForm .= "checked";
-		}
-		$updateUserForm .= " onclick=\"display('k_tm','block');display('k_tm_label','block');display('k_f','block');display('k_f_label','block');\">Υπάλληλος & Φοιτητής</label>
-											</div>";
-		$strSQL = "select * from st_f where id = ".$id;
-		$result = mysqli_query($conn, $strSQL);
-		if (mysqli_num_rows($result) == 0) {
-			$row['k_f'] = null;
-			$row['k_tm'] = null;
-		} else {
-			$row = mysqli_fetch_assoc($result);
-		}
-		$updateUserForm .= "	<div class=\"form-group\">
-												<label id=\"k_f_label\" for=\"k_f\">Μητρώο φοιτητή:</label>
-												<input type=\"text\" class=\"form-control\" id=\"k_f\" placeholder=\"Εισαγωγή Μητρώου\" name = \"k_f\" maxlength=\"8\" onchange=\"k_fValidation('k_f')\" value=\"".$row['k_f']."\">
-											</div>
-											<div class=\"form-group\">
-												<label id=\"k_tm_label\" for=\"k_tm\">Σχολή Φοιτητή:</label>
-												<select id=\"k_tm\" class=\"form-control\" name=\"k_tm\">
-													<option value=\"0\" ";
-		if ($row['k_tm'] == null) {
-			$updateUserForm .= "selected";
-		}
-		$updateUserForm .= ">Καμία επιλογή...</option>
-													<option value=\"1\" ";
-		if ($row['k_tm']==1) {
-			$updateUserForm .= "selected";
-		}
-		$updateUserForm .= ">Σχολή Πολιτικών Μηχανικών</option>
-													<option value=\"2\" ";
-		if ($row['k_tm']==2) {
-			$updateUserForm .= "selected";
-		}
-		$updateUserForm .= ">Σχολή Μηχανολόγων Μηχανικών</option>
-													<option value=\"3\" ";
-		if ($row['k_tm']==3) {
-			$updateUserForm .= "selected";
-		}
-		$updateUserForm .= ">Σχολή Ηλεκτρολόγων Μηχανικών και Μηχανικών Υπολογιστών</option>
-													<option value=\"4\" ";
-		if ($row['k_tm']==4) {
-			$updateUserForm .= "selected";
-		}
-		$updateUserForm .= ">Σχολή Αρχιτεκτόνων Μηχανικών</option>
-													<option value=\"5\" ";
-		if ($row['k_tm']==5) {
-			$updateUserForm .= "selected";
-		}
-		$updateUserForm .= ">Σχολή Χημικών Μηχανικών</option>
-													<option value=\"6\" ";
-		if ($row['k_tm']==6) {
-			$updateUserForm .= "selected";
-		}
-		$updateUserForm .= ">Σχολή Αγρονόμων και Τοπογράφων Μηχανικών</option>
-													<option value=\"7\" ";
-		if ($row['k_tm']==7) {
-			$updateUserForm .= "selected";
-		}
-		$updateUserForm .= ">Σχολή Μηχανικών Μεταλλείων Μεταλλουργών</option>
-													<option value=\"8\" ";
-		if ($row['k_tm']==8) {
-			$updateUserForm .= "selected";
-		}
-		$updateUserForm .= ">Σχολή Ναυπηγών Μηχανολόγων Μηχανικών</option>
-													<option value=\"9\" ";
-		if ($row['k_tm']==9) {
-			$updateUserForm .= "selected";
-		}
-		$updateUserForm .= ">Σχολή Εφαρμοσμένων Μαθηματικών και Φυσικών Επιστημών</option>
-												</select>
-											</div>
-											<button type=\"button\" class=\"btn btn-info\" name=\"cancel\" value =\"cancel\" onClick=\"window.location='http://".$host."loginForm.php';\">Άκυρο</button>
-											<button type=\"submit\" class=\"btn btn-info\">Ενημέρωση</button>
-										</form>
-									</div>
-								</div>
-							</div>";
-	return $updateUserForm;
-	}
-}
-
 function getCookie($cookie_name){
 	if (!isset($_COOKIE[$cookie_name])) {
 		return null;
@@ -766,6 +381,742 @@ function downloadFile($fname,$type,$txt){
 		header("Content-disposition: attachment; filename=\"" . basename($file_url) . "\""); 
 		
 		readfile($file_url);
+	}
+}
+
+class User {
+	private $host;
+	private $dbhost;
+	private $port;
+	private $dbname;
+	private $dbuser;
+	private $dbpwd;
+	private $id;
+	private $username;
+	private $pwd;
+	private $hash;
+	private $active;
+	private $email;
+	private $epvn;
+	private $onoma;
+	private $role;
+	private $k_f;
+	private $k_tm;
+	private $lang ;
+	
+	function __construct(){
+		global $host, $dbhost, $port, $dbname, $dbuser, $dbpwd;
+		$this->host = $host;
+		$this->dbhost = $dbhost;
+		$this->port = $port;
+		$this->dbname = $dbname;
+		$this->dbuser = $dbuser;
+		$this->dbpwd = $dbpwd;
+		$this->lang = 'gr';
+	}	
+	
+	function connect() {
+		
+		// Check connection
+		$conn = mysqli_connect($this->dbhost, $this->dbuser, $this->dbpwd, $this->dbname);
+		
+		return $conn;
+	} 
+	
+	function disconnect($conn) {
+		mysqli_close($conn);
+	}
+	
+	function login($username, $pwd){
+		$conn = $this->connect();
+		if ($conn) {
+			$strSQL = "select * from users where username = '".$username."' and pwd = '".md5($pwd)."'";
+			$result = mysqli_query($conn, $strSQL);
+			$this->id = null;
+			if (mysqli_num_rows($result) > 0) {
+				$row = mysqli_fetch_assoc($result);
+				$this->id = $row['id'];
+				$this->username = $row['username'];
+				$this->pwd = $row['pwd'];
+				$this->hash = $row['hash'];
+				$this->active = $row['active'];
+				$this->email = $row['email'];
+				$this->epvn = $row['epvn'];
+				$this->onoma = $row['onoma'];
+				$this->role = $row['role'];
+				
+				$_SESSION['ntuarisUserID'] = $this->id;
+				$_SESSION['ntuarisUser'] = $this->epvn.' '.$this->onoma;
+				$_SESSION['ntuarisUserRole'] = $this->role;
+				
+		
+				if ($this->isStudent()) {
+					$strSQL = "select * from st_f where id = ".$this->id;
+					$result = mysqli_query($conn, $strSQL);
+					if (mysqli_num_rows($result) > 0) {
+						$row = mysqli_fetch_assoc($result);
+						$this->k_f = $row['k_f'];
+						$this->k_tm = $row['k_tm'];
+					}
+				}
+			}
+			$this->disconnect($conn);
+		}
+	}
+	
+	function getUserDataByID() {
+		if ($this->isConnected()) {
+			$conn = $this->connect();
+			if ($conn) {
+				$strSQL = "select * from users where id = ".$_SESSION['ntuarisUserID'];
+				$result = mysqli_query($conn, $strSQL);
+				$this->id = null;
+				if (mysqli_num_rows($result) > 0) {
+					$row = mysqli_fetch_assoc($result);
+					$this->id = $row['id'];
+					$this->username = $row['username'];
+					$this->pwd = $row['pwd'];
+					$this->hash = $row['hash'];
+					$this->active = $row['active'];
+					$this->email = $row['email'];
+					$this->epvn = $row['epvn'];
+					$this->onoma = $row['onoma'];
+					$this->role = $row['role'];
+		
+					if ($this->isStudent()) {
+						$strSQL = "select * from st_f where id = ".$this->id;
+						$result = mysqli_query($conn, $strSQL);
+						if (mysqli_num_rows($result) > 0) {
+							$row = mysqli_fetch_assoc($result);
+							$this->k_f = $row['k_f'];
+							$this->k_tm = $row['k_tm'];
+						}
+					}
+				}
+				$this->disconnect($conn);
+			}
+		}
+	}
+	
+	function getUserDataByEmail($email) {
+		$conn = $this->connect();
+		if ($conn) {
+			$strSQL = "select * from users where email = '".$email."'";
+			$result = mysqli_query($conn, $strSQL);
+			$this->id = null;
+			if (mysqli_num_rows($result) > 0) {
+				$row = mysqli_fetch_assoc($result);
+				$this->id = $row['id'];
+				$this->username = $row['username'];
+				$this->pwd = $row['pwd'];
+				$this->hash = $row['hash'];
+				$this->active = $row['active'];
+				$this->email = $row['email'];
+				$this->epvn = $row['epvn'];
+				$this->onoma = $row['onoma'];
+				$this->role = $row['role'];
+		
+				if ($this->isStudent()) {
+					$strSQL = "select * from st_f where id = ".$this->id;
+					$result = mysqli_query($conn, $strSQL);
+						if (mysqli_num_rows($result) > 0) {
+							$row = mysqli_fetch_assoc($result);
+							$this->k_f = $row['k_f'];
+							$this->k_tm = $row['k_tm'];
+						}
+				}
+			}
+			$this->disconnect($conn);
+		}
+	}
+	
+	function getUserDataByUsername($username) {
+		$conn = $this->connect();
+		if ($conn) {
+			$strSQL = "select * from users where username = '".$username."'";
+			$result = mysqli_query($conn, $strSQL);
+			$this->id = null;
+			if (mysqli_num_rows($result) > 0) {
+				$row = mysqli_fetch_assoc($result);
+				$this->id = $row['id'];
+				$this->username = $row['username'];
+				$this->pwd = $row['pwd'];
+				$this->hash = $row['hash'];
+				$this->active = $row['active'];
+				$this->email = $row['email'];
+				$this->epvn = $row['epvn'];
+				$this->onoma = $row['onoma'];
+				$this->role = $row['role'];
+		
+				if ($this->isStudent()) {
+					$strSQL = "select * from st_f where id = ".$this->id;
+					$result = mysqli_query($conn, $strSQL);
+						if (mysqli_num_rows($result) > 0) {
+							$row = mysqli_fetch_assoc($result);
+							$this->k_f = $row['k_f'];
+							$this->k_tm = $row['k_tm'];
+						}
+				}
+			}
+			$this->disconnect($conn);
+		}
+	}
+	
+	function isConnected() {
+		if (isset($_SESSION['ntuarisUserID'])) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	function getConnectedUserName() {
+		if ($this->isConnected()) {
+			return $_SESSION['ntuarisUser'];
+		} else {
+			return null;
+		}
+	}
+	
+	function isActive() {
+		if ($this->active==0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	function setLang($lang) {
+		$this->lang = $lang;
+	}
+	
+	function checkUserActivation($email, $hash) {
+		
+		$conn = $this->connect();
+		if ($conn) {
+			$strSQL = "select email,hash,active from users where email = '".$email."' and hash ='".$hash."' and active = 1";
+			$result = mysqli_query($conn, $strSQL);
+			if (mysqli_num_rows($result) > 0) {
+				return 1;		//user is active
+			} else {
+				$strSQL = "select email,hash,active from users where email = '".$email."' and hash ='".$hash."' and active = 0";
+				$result = mysqli_query($conn, $strSQL);
+				if (mysqli_num_rows($result) > 0) {
+					return 0;	//user is not active yet
+				} else {
+					return 2;	//there is no user with this email and hash code
+				}
+			}
+			$this->disconnect($conn);
+		} else {
+			return 3;  		//can't connect to server
+		}
+	}
+	
+	function activateUser($email, $hash) {
+		$conn = $this->connect();
+		if ($conn) {
+			$strSQL = "update users set active = 1 where email = '".$email."' and hash='".$hash."'";
+			if (mysqli_query($conn, $strSQL)) {
+				return true;
+			} else {
+				return false;
+			}
+			$this->disconnect($conn);
+		} else {
+			return false;
+		}
+	}
+	
+	function isStudent() {
+		if ($this->role==1) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	function isEmployer() {
+		if ($this->role==2) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	function getHost(){
+		return $this->host;
+	}
+	
+	function setPreferedLang($lang) {
+		$this->lang = $lang;
+	}
+	
+	function getId() {
+		return $this->id;
+	}
+	
+	function getEmail() {
+		return $this->email;
+	}
+	
+	function getUsername() {
+		return $this->username;
+	}
+	
+	function getPwd() {
+		return $this->pwd;
+	}
+	
+	function updatePwd($pwd){
+		$conn = $this->connect();
+		if ($conn) {
+			$strSQL = "update users set pwd = '".md5($pwd)."' where id = ".$this->id;
+			if (mysqli_query($conn, $strSQL)) {
+				$this->pwd = md5($pwd);
+				return true;
+			} else {
+				return false;
+			}
+			$this->disconnect($conn);
+		} else {
+			return false;
+		}
+	}
+	
+	function insertUser($username, $pwd, $active, $email, $epvn, $onoma, $role, $k_f, $k_tm) {
+		$conn = $this->connect();
+		if ($conn) {
+			$strSQL = "insert into users(username,pwd,hash,active,email,epvn,onoma,role) values ('".$username."','".md5($pwd)."','".md5($email)."',0,'".$email."','".$epvn."','".$onoma."',".$role.");";
+			if (mysqli_query($conn, $strSQL)) {
+				if(($role==2)||($role==3)) {
+					$user->getUserDataByUsername($username);
+					$strSQL = "insert into st_f(id, k_f, k_tm) values (".$user->getId().",'".$k_f."',".$k_tm.")";
+					if(mysqli_query($conn, $strSQL)) {
+						$this->k_f = $k_f;
+						$this->k_tm = $k_tm;
+						return true;
+					} else {
+						return false;
+					}
+				}
+				$this->id = $_SESSION['ntuarisUserID'];
+				$this->username = $username;
+				$this->email = $email;
+				$this->evpn = $epvn;
+				$this->onoma = $onoma;
+				$this->role = $role;
+				return true;
+			} else {
+				return false;
+			}
+			$this->disconnect($conn);
+		} else {
+			return false;
+		}
+	}
+	
+	function updateUser($username, $email, $epvn, $onoma, $role, $k_f, $k_tm) {
+		if ($this->isConnected()) {
+			$conn = $this->connect();
+			if ($conn) {
+				$strSQL = "update users set username = '".$username."',email = '".$email."',epvn = '".$epvn."',onoma ='".$onoma."',role = ".$role.", hash = '".md5($email)."' where id = ".$_SESSION['ntuarisUserID'];
+				if (mysqli_query($conn, $strSQL)) {
+					if (($role==2)||($role==3)) {
+						$strSQL = "update st_f set k_f = '".$k_f."',k_tm = ".$k_tm." where id = ".$_SESSION['ntuarisUserID'];
+						if(mysqli_query($conn, $strSQL)) {
+							$this->k_f = $k_f;
+							$this->k_tm = $k_tm;
+							return true;
+						} else {
+							return false;
+						}
+					}
+					$this->id = $_SESSION['ntuarisUserID'];
+					$this->username = $username;
+					$this->email = $email;
+					$this->evpn = $epvn;
+					$this->onoma = $onoma;
+					$this->role = $role;
+					return true;
+				} else {
+					return false;
+				}
+				$this->disconnect($conn);
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+	
+	function getNavBar() {
+	
+		if ($this->lang == 'eng') {
+			$navbar = "	<nav class=\"navbar navbar-inverse\">
+									<div class=\"container-fluid\">
+										<div class=\"navbar-header\">
+											<button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#myNavbar\">
+												<span class=\"icon-bar\"></span>
+												<span class=\"icon-bar\"></span>
+												<span class=\"icon-bar\"></span>                        
+											</button>
+											<a class=\"navbar-brand\" href=\"http://users.ntua.gr/tant/ntuaris/\">ntuaris</a>
+										</div>
+									<div class=\"collapse navbar-collapse\" id=\"myNavbar\">
+										<ul class=\"nav navbar-nav navbar-right\">";
+			if (!$this->isConnected()) {
+				$navbar = $navbar."	<li><a href=\"http://".$this->getHost()."loginFormEng.php\"><span class=\"glyphicon glyphicon-log-in\"></span> Sign in </a></li>
+												<li><a href=\"http://".$this->getHost()."signUpForm.php\"><span class=\"glyphicon glyphicon-file\"></span> Sign up </a></li>
+												<li><a href=\"http://".$this->getHost()."loginForm.php\"><img src=\"./img/Greece-icon.png\" ></li></a></li>
+											</ul>
+										</div>
+									</div>
+								</nav>";
+			} else {
+				global $pwdModalEng;
+				$navbar = $navbar."	<li class = \"dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"http://".$this->getHost()."login.php\"><span class=\"glyphicon glyphicon-user\"></span> " .$this->getConnectedUserName()." <span class=\"caret\"></span></a><ul class=\"dropdown-menu\">
+													<li><a href=\"http://".$this->getHost()."updateUserForm.php\"><span class=\"glyphicon glyphicon-pencil\"> Append </span></a></li>
+													<li><a href=\"#\" data-toggle=\"modal\" data-target=\"#pwdModal\"><span class=\"glyphicon glyphicon-pawn\"> Change Password </span></a></li>
+													<li><a href=\"http://".$this->getHost()."logout.php\"><span class=\"glyphicon glyphicon-log-out\"> Logout </span></a></li></ul></li>
+												<li><a href=\"http://".$this->getHost()."indexEng.html\"><img src=\"./img/Greece-icon.png\" ></li></a></li>
+											</ul>
+										</div>
+									</div>
+								</nav>";
+				$navbar = $navbar.$pwdModalEng;
+			}
+		} else {
+			$navbar = "	<nav class=\"navbar navbar-inverse\">
+									<div class=\"container-fluid\">
+										<div class=\"navbar-header\">
+											<button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#myNavbar\">
+												<span class=\"icon-bar\"></span>
+												<span class=\"icon-bar\"></span>
+												<span class=\"icon-bar\"></span>                        
+											</button>
+											<a class=\"navbar-brand\" href=\"http://users.ntua.gr/tant/ntuaris/\">ntuaris</a>
+										</div>
+									<div class=\"collapse navbar-collapse\" id=\"myNavbar\">
+										<ul class=\"nav navbar-nav navbar-right\">";
+			if (!$this->isConnected()) {
+				$navbar = $navbar."	<li><a href=\"http://".$this->getHost()."loginForm.php\"><span class=\"glyphicon glyphicon-log-in\"></span> Σύνδεση </a></li>
+												<li><a href=\"http://".$this->getHost()."signUpForm.php\"><span class=\"glyphicon glyphicon-file\"></span> Εγγραφή </a></li>
+												<li><a href=\"http://".$this->getHost()."loginFormEng.php\"><img src=\"./img/United-Kingdom-icon.png\" ></li></a></li>
+											</ul>
+										</div>
+									</div>
+								</nav>";
+			} else {
+				global $pwdModal;
+				$navbar = $navbar."	<li class = \"dropdown\"><a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"http://".$this->getHost()."login.php\"><span class=\"glyphicon glyphicon-user\"></span> " .$this->getConnectedUserName()." <span class=\"caret\"></span></a><ul class=\"dropdown-menu\">
+													<li><a href=\"http://".$this->getHost()."updateUserForm.php\"><span class=\"glyphicon glyphicon-pencil\"> Επεξεργασία </span></a></li>
+													<li><a href=\"#\" data-toggle=\"modal\" data-target=\"#pwdModal\"><span class=\"glyphicon glyphicon-pawn\"> Αλλαγή Συνθηματικού </span></a></li>
+													<li><a href=\"http://".$this->getHost()."logout.php\"><span class=\"glyphicon glyphicon-log-out\"> Έξοδος </span></a></li></ul></li>
+												<li><a href=\"http://".$this->getHost()."indexEng.html\"><img src=\"./img/United-Kingdom-icon.png\" ></li></a></li>
+											</ul>
+										</div>
+									</div>
+								</nav>";
+				$navbar = $navbar.$pwdModal;
+			}
+		}
+		return $navbar;
+	}
+	
+	function getLoginForm() {
+
+		if ($this->lang == 'eng') {
+			$loginForm = "	<div class=\"container text-center\">
+								<div class=\"well well-sm row\">
+									<div class=\"col-xs-4 text-right\">
+										<img src=\"./img/pyrforos.png\" class=\"img-circle\" alt=\"pyrforos\" width=\"45\" height=\"45\">
+									</div>
+									<div class=\"col-xs-8 text-left\">
+										<h4>Online Services of N.T.U.A</h4>
+									</div>
+								</div>
+							</div>
+
+							<div class=\"row\">
+								<div class=\"col-xs-2\"></div>
+								<div class=\"col-xs-8\">
+									<h4>Login</h4></br>
+									<form action=\"http://".$this->getHost()."login.php\" method=\"post\">
+										<div class=\"form-group\">
+											<label for=\"username\"><span class=\"glyphicon glyphicon-user\"></span> Username:</label>
+											<input type=\"text\" class=\"form-control\" id=\"username\" placeholder=\"Enter Username\" size = \"35\" name = \"username\" value = \"".getCookie('ntuarisUser')."\">
+										</div>
+										<div class=\"form-group\">
+											<label for=\"pwd\"><span class=\"glyphicon glyphicon-lock\"></span> Password:</label>
+											<input type=\"password\" class=\"form-control\" id=\"pwd\" placeholder=\"Enter Password\" size = \"25\" name = \"pwd\" value = \"".getCookie('ntuarisPwd')."\">
+										</div>
+										<div class=\"checkbox\">
+											<label><input type=\"checkbox\" name =\"remember\"".setChecked('ntuarisUser')."> Remember me</label>
+										</div>
+										<div>
+											<a href=\"http://".$this->getHost()."usernamereminder.php\">Username Reminder</a></br>
+											<a href=\"http://".$this->getHost()."pwdreminder.php\">Reset Password</a>
+										</div>
+										<div align=\"right\">
+											<button type=\"submit\" class=\"btn btn-info\">Login</button>
+										</div>
+									</form>
+								</div>
+								<div class=\"col-xs-2\"></div>
+							</div>";
+		} else {
+			$loginForm = "	<div class=\"container text-center\">
+								<div class=\"well well-sm row\">
+									<div class=\"col-xs-4 text-right\">
+										<img src=\"./img/pyrforos.png\" class=\"img-circle\" alt=\"pyrforos\" width=\"45\" height=\"45\">
+									</div>
+									<div class=\"col-xs-8 text-left\">
+										<h4>Ηλεκτρονικές Υπηρεσίες Ε.Μ.Π.</h4>
+									</div>
+								</div>
+							</div>
+
+							<div class=\"row\">
+								<div class=\"col-xs-2\"></div>
+								<div class=\"col-xs-8\">
+									<h4>Σύνδεση Χρήστη</h4></br>
+									<form action=\"http://".$this->getHost()."login.php\" method=\"post\">
+										<div class=\"form-group\">
+											<label for=\"username\"><span class=\"glyphicon glyphicon-user\"></span> Όνομα Χρήστη:</label>
+											<input type=\"text\" class=\"form-control\" id=\"username\" placeholder=\"Εισαγωγή όνομα χρήστη (username)\" size = \"35\" name = \"username\" value = \"".getCookie('ntuarisUser')."\">
+										</div>
+										<div class=\"form-group\">
+											<label for=\"pwd\"><span class=\"glyphicon glyphicon-lock\"></span> Συνθηματικό:</label>
+											<input type=\"password\" class=\"form-control\" id=\"pwd\" placeholder=\"Εισαγωγή συνθηματικού\" size = \"25\" name = \"pwd\" value = \"".getCookie('ntuarisPwd')."\">
+										</div>
+										<div class=\"checkbox\">
+											<label><input type=\"checkbox\" name =\"remember\"".setChecked('ntuarisUser')."> Να με θυμάσαι</label>
+										</div>
+										<div>
+											<a href=\"http://".$this->getHost()."usernamereminder.php\">Υπενθύμιση Ονόματος Χρήστη</a></br>
+											<a href=\"http://".$this->getHost()."pwdreminder.php\">Επαναφορά Συνθηματικού</a>
+										</div>
+										<div align=\"right\">
+											<button type=\"submit\" class=\"btn btn-info\">Σύνδεση</button>
+										</div>
+									</form>
+								</div>
+								<div class=\"col-xs-2\"></div>
+							</div>";
+		} 
+		return $loginForm;	
+	}
+	
+	function getUpdateUserForm(){
+	
+		if (!$this->isConnected()) {
+			return false;
+		} else {
+			$conn = $this->connect();
+			if (!$conn) {
+				return false;
+			} else {
+				$this->getUserDataById();
+				if ($this->getId() == null) {
+					$updateUserForm = "	<div class=\"alert alert-danger alert-dismissable fade in\">
+														<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
+														<p id=\"msgtext\"><strong>Σφάλμα!</strong> Δεν υπάρχει χρήστης με id = ".$_SESSION['ntuarisUserID']."</p>
+													</div>";
+				} else {
+					$updateUserForm= "	
+							<div id=\"msg\" class=\"alert alert-danger alert-dismissable fade in\" style=\"display:none\">
+								<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
+								<p id=\"msgtext\"></p>
+							</div>
+							<div class=\"container\">
+								<div>
+									<div><h4><p>Ενημέρωση Στοιχείων Χρήστη</p></h4></div>
+									<div class=\"well\">
+										<form action=\"http://".$this->getHost()."updateUser.php\" method=\"post\">
+											<div class=\"form-group\">
+												<label for=\"username\">Username χρήστη:</label>
+												<input type=\"text\" class=\"form-control\" id=\"username\" placeholder=\"Εισαγωγή username\" name = \"username\" value = \"".$this->username."\">
+											</div>
+											<div class=\"form-group\">
+												<label for=\"epvn\">Επώνυμο χρήστη:</label>
+												<input type=\"text\" class=\"form-control\" id=\"epvn\" placeholder=\"Εισαγωγή Επωνύμου\" name = \"epvn\" onkeyup=\"upperCase('epvn')\" value = \"".$this->epvn."\">
+											</div>
+											<div class=\"form-group\">
+												<label for=\"onoma\">Όνομα χρήστη:</label>
+												<input type=\"text\" class=\"form-control\" id=\"onoma\" placeholder=\"Εισαγωγή Ονόματος\" name = \"onoma\" onkeyup=\"upperCase('onoma')\" value = \"".$this->onoma."\">
+											</div>
+											<div class=\"form-group\">
+												<label for=\"email\">Email χρήστη:</label>
+												<input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"Εισαγωγή Email\" name = \"email\" onchange=\"emailValidation('email') \" value = \"".$this->email."\" autocomplete=\"on\">
+											</div>
+											<div class=\"form-group\">
+												<label for=\"role\">Ρόλος χρήστη:</label>
+												</br>
+												<label class=\"radio-inline\"><input type=\"radio\" id =\"role\" name=\"role\" value = \"1\" ";
+					if ($this->role==1) {
+						$updateUserForm .= "checked";
+					}
+					$updateUserForm .= " onclick=\"display('k_tm','none');display('k_tm_label','none');display('k_f','none');display('k_f_label','none');clearInput('k_f')\">Υπάλληλος</label>
+												<label class=\"radio-inline\"><input type=\"radio\" id =\"role\" name=\"role\" value = \"2\" ";
+					if ($this->role==2) {
+						$updateUserForm .= "checked";
+					}
+					$updateUserForm .= " onclick=\"display('k_tm','block');display('k_tm_label','block');display('k_f','block');display('k_f_label','block');\">Φοιτητής</label>
+												<label class=\"radio-inline\"><input type=\"radio\" id =\"role\" name=\"role\" value = \"3\" ";
+					if ($this->role==3) {
+						$updateUserForm .= "checked";
+					}
+					$updateUserForm .= " onclick=\"display('k_tm','block');display('k_tm_label','block');display('k_f','block');display('k_f_label','block');\">Υπάλληλος & Φοιτητής</label>
+											</div>";
+					
+					$updateUserForm .= "<div class=\"form-group\">
+														<label id=\"k_f_label\" for=\"k_f\">Μητρώο φοιτητή:</label>
+														<input type=\"text\" class=\"form-control\" id=\"k_f\" placeholder=\"Εισαγωγή Μητρώου\" name = \"k_f\" maxlength=\"8\" onchange=\"k_fValidation('k_f')\" value=\"".$this->k_f."\">
+													</div>
+													<div class=\"form-group\">
+														<label id=\"k_tm_label\" for=\"k_tm\">Σχολή Φοιτητή:</label>
+														<select id=\"k_tm\" class=\"form-control\" name=\"k_tm\">
+														<option value=\"0\" ";
+													
+					if (!$this->isStudent()) {
+						$updateUserForm .= "selected";
+					}
+					$updateUserForm .= ">Καμία επιλογή...</option>
+													<option value=\"1\" ";
+					if ($this->k_tm==1) {
+						$updateUserForm .= "selected";
+					}
+					$updateUserForm .= ">Σχολή Πολιτικών Μηχανικών</option>
+													<option value=\"2\" ";
+					if ($this->k_tm==2) {
+						$updateUserForm .= "selected";
+					}
+					$updateUserForm .= ">Σχολή Μηχανολόγων Μηχανικών</option>
+													<option value=\"3\" ";
+					if ($this->k_tm==3) {
+						$updateUserForm .= "selected";
+					}
+					$updateUserForm .= ">Σχολή Ηλεκτρολόγων Μηχανικών και Μηχανικών Υπολογιστών</option>
+													<option value=\"4\" ";
+					if ($this->k_tm==4) {
+						$updateUserForm .= "selected";
+					}
+					$updateUserForm .= ">Σχολή Αρχιτεκτόνων Μηχανικών</option>
+													<option value=\"5\" ";
+					if ($this->k_tm==5) {
+						$updateUserForm .= "selected";
+					}
+					$updateUserForm .= ">Σχολή Χημικών Μηχανικών</option>
+													<option value=\"6\" ";
+					if ($this->k_tm==6) {
+						$updateUserForm .= "selected";
+					}
+					$updateUserForm .= ">Σχολή Αγρονόμων και Τοπογράφων Μηχανικών</option>
+													<option value=\"7\" ";
+					if ($this->k_tm==7) {
+						$updateUserForm .= "selected";
+					}
+					$updateUserForm .= ">Σχολή Μηχανικών Μεταλλείων Μεταλλουργών</option>
+													<option value=\"8\" ";
+					if ($this->k_tm==8) {
+						$updateUserForm .= "selected";
+					}
+					$updateUserForm .= ">Σχολή Ναυπηγών Μηχανολόγων Μηχανικών</option>
+													<option value=\"9\" ";
+					if ($this->k_tm==9) {
+						$updateUserForm .= "selected";
+					}
+					$updateUserForm .= ">Σχολή Εφαρμοσμένων Μαθηματικών και Φυσικών Επιστημών</option>
+												</select>
+											</div>
+											<button type=\"button\" class=\"btn btn-info\" name=\"cancel\" value =\"cancel\" onClick=\"window.location='http://".$this->getHost()."loginForm.php';\">Άκυρο</button>
+											<button type=\"submit\" class=\"btn btn-info\">Ενημέρωση</button>
+										</form>
+									</div>
+								</div>
+							</div>";
+					return $updateUserForm;
+				}
+				$this->disconnect($conn);
+			}
+		}
+	}
+	
+	function getMenu() {
+
+		if ($this->isConnected()) {	
+			$this->getUserDataByID();
+		}
+	
+		if ($this->id == null) {
+			$menu = "	<div class=\"alert alert-danger alert-dismissable fade in\">
+								<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
+								<p id=\"msgtext\"><strong>Σφάλμα!</strong> Δεν υπάρχει σύνδεση. Πατήστε <a href=\"http://".$this->getHost()."loginForm.php\"> εδώ </a> για να συνδεθείτε</p>
+							</div>";
+		} else {
+			if (($this->role == 1)||($this->role == 2)||($this->role == 3)) {
+		
+				$menu = "	<div class=\"container text-center\">
+									<div class=\"well well-sm row\">
+										<div class=\"col-xs-4 text-right\">
+											<img src=\"./img/pyrforos.png\" class=\"img-circle\" alt=\"pyrforos\" width=\"45\" height=\"45\">
+										</div>
+										<div class=\"col-xs-8 text-left\">
+											<h4>Ηλεκτρονικές Υπηρεσίες Ε.Μ.Π.</h4>
+										</div>
+									</div>
+									<div class=\"container-fluid row\">";
+				if ($this->isEmployer()) {
+					$menu = $menu."	<div class=\"col-xs-4 text-right\">
+													<a href=\"http://".$this->getHost()."underconstruction.php\"><img src=\"./img/statistics.jpg\" class=\"img-thumbnail\" height=\"65\" width=\"65\" alt=\"Statistics\"></a>
+												</div>
+												<div class=\"col-xs-8 text-left\">
+													<h4><a href=\"http://".$this->getHost()."underconstruction.php\">Στατιστικά Στοιχεία Φοιτητολογίου</a></h4>
+													</br>
+												</div>";
+				}
+				if ($this->isStudent()) {
+					$menu = $menu."	<div class=\"col-xs-4 text-right\">
+													<a href=\"http://dasta1.ece.ntua.gr:8080/dastaReports\"><img src=\"./img/dasta.jpg\" class=\"img-thumbnail\" height=\"65\" width=\"65\" alt=\"Dasta\"></a>
+												</div>
+												<div class=\"col-xs-8 text-left\">
+													<h4><a href=\"http://dasta1.ece.ntua.gr:8080/dastaReports\">Δομή Απασχόλησης & Σταδιοδρομίας</a></h4>
+													</br>
+												</div>
+												<div class=\"col-xs-4 text-right\">
+													<a href=\"http://".$this->getHost()."underconstruction.php\"><img src=\"./img/registration.jpg\" class=\"img-thumbnail\" height=\"65\" width=\"65\" alt=\"Registration\"></a>
+												</div>
+												<div class=\"col-xs-8 text-left\">
+													<h4><a href=\"http://".$this->getHost()."underconstruction.php\">Εγγραφές & Δηλώσεις Μαθημάτων</a></h4>
+													</br>
+												</div>
+												<div class=\"col-xs-4 text-right\">
+													<a href=\"http://".$this->getHost()."underconstruction.php\"><img src=\"./img/certificate.jpg\" class=\"img-thumbnail\" height=\"65\" width=\"65\" alt=\"Certificate\"></a>
+												</div>
+												<div class=\"col-xs-8 text-left\">
+													<h4><a href=\"http://".$this->getHost()."underconstruction.php\">Αιτήσεις Έκδοσης Πιστοποιητικών</a></h4>
+													</br>
+												</div>
+												<div class=\"col-xs-4 text-right\">
+													<a href=\"http://praktiki.ntua.gr/site/Eisodos.html\"><img src=\"./img/praxis.jpg\" class=\"img-thumbnail\" height=\"65\" width=\"65\" alt=\"Praxis\"></a>
+												</div>
+												<div class=\"col-xs-8 text-left\">
+													<h4><a href=\"http://praktiki.ntua.gr/site/Eisodos.html\">Πρακτική Άσκηση Φοιτητών</a></h4>
+													</br>
+												</div>";
+				}
+				$menu = $menu."		</div>
+											</div>";
+			} else {
+				$menu ="	<div class=\"alert alert-danger alert-dismissable fade in\">
+									<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
+									<p id=\"msgtext\"><strong>Σφάλμα!</strong> Δεν ορίστηκε αποδεκτός ρόλος στον χρήστη (Υπάλληλος - Φοιτητής - Υπάλληλος & Φοιτητής</p>
+								</div>";
+			}
+		} 
+		return $menu;
 	}
 }
 ?>
