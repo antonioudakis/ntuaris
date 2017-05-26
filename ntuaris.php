@@ -4,7 +4,7 @@ $dbhost = "localhost";
 $port = "3302";
 $dbname = "ntuaris";
 $dbuser = "root";
-$dbpwd = "p3l1c@n";
+$dbpwd = "tant";
 $conn_string = "host=".$dbhost." port=".$port." dbname=".$dbname." user=".$dbuser." password=".$dbpwd; 
 			
 $header = "	<!DOCTYPE html>
@@ -419,7 +419,7 @@ class User {
 		
 		// Check connection
 		$conn = mysqli_connect($this->dbhost, $this->dbuser, $this->dbpwd, $this->dbname);
-		
+
 		return $conn;
 	} 
 	
@@ -920,10 +920,7 @@ class User {
 			} else {
 				$this->getUserDataById();
 				if ($this->getId() == null) {
-					$updateUserForm = "	<div class=\"alert alert-danger alert-dismissable fade in\">
-														<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
-														<p id=\"msgtext\"><strong>Σφάλμα!</strong> Δεν υπάρχει χρήστης με id = ".$_SESSION['ntuarisUserID']."</p>
-													</div>";
+					$updateUserForm = $this->createMessage("alert-danger","<strong>Σφάλμα!</strong> Δεν υπάρχει χρήστης με id = ".$_SESSION['ntuarisUserID']);
 				} else {
 					$updateUserForm= "	
 							<div id=\"msg\" class=\"alert alert-danger alert-dismissable fade in\" style=\"display:none\">
@@ -1051,10 +1048,7 @@ class User {
 		}
 	
 		if ($this->id == null) {
-			$menu = "	<div class=\"alert alert-danger alert-dismissable fade in\">
-								<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
-								<p id=\"msgtext\"><strong>Σφάλμα!</strong> Δεν υπάρχει σύνδεση. Πατήστε <a href=\"http://".$this->getHost()."loginForm.php\"> εδώ </a> για να συνδεθείτε</p>
-							</div>";
+			$menu = $this->createMessage("alert-danger","<strong>Προσοχή!</strong> Δεν υπάρχει σύνδεση. Πατήστε <a href=\"http://".$this->getHost()."loginForm.php\"> εδώ </a> για να συνδεθείτε");
 		} else {
 			if (($this->role == 1)||($this->role == 2)||($this->role == 3)) {
 		
@@ -1110,13 +1104,25 @@ class User {
 				$menu = $menu."		</div>
 											</div>";
 			} else {
-				$menu ="	<div class=\"alert alert-danger alert-dismissable fade in\">
-									<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
-									<p id=\"msgtext\"><strong>Σφάλμα!</strong> Δεν ορίστηκε αποδεκτός ρόλος στον χρήστη (Υπάλληλος - Φοιτητής - Υπάλληλος & Φοιτητής</p>
-								</div>";
+				$menu = $this->createMessage("alert-danger","<strong>Προσοχή!</strong> Δεν ορίστηκε αποδεκτός ρόλος στον χρήστη (Υπάλληλος - Φοιτητής - Υπάλληλος & Φοιτητής)");	
 			}
 		} 
 		return $menu;
 	}
+	
+	function showMessage($alertType, $alertMessage) {
+		echo  "	<div class=\"alert ".$alertType." alert-dismissable fade in\">
+						<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
+						<p id=\"msgtext\">".$alertMessage."</p>
+					</div>";
+	}
+	
+	function createMessage($alertType, $alertMessage) {
+			return  "	<div class=\"alert ".$alertType." alert-dismissable fade in\">
+								<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
+								<p id=\"msgtext\">".$alertMessage."</p>
+							</div>";
+	}
+	
 }
 ?>

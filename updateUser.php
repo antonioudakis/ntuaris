@@ -5,10 +5,7 @@ echo $header;
 $user = new User();
 echo $user->getNavBar();
 if (!$user->isConnected()) {
-	echo "	<div class=\"alert alert-danger alert-dismissable fade in\">
-					<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
-					<p id=\"msgtext\"><strong>Σφάλμα!</strong> Πρέπει πρώτα να συνδεθείτε στο σύστημα</p>
-				</div>";
+	$user->showMessage("alert-danger","<strong>Προσοχή!</strong>  Πρέπει πρώτα να συνδεθείτε στο σύστημα");
 	echo $user->getLoginForm();
 } else {
 	$validInput = false;
@@ -23,23 +20,14 @@ if (!$user->isConnected()) {
 	}
 
 	if (!$validInput) {
-		echo "	<div id=\"msg\" class=\"alert alert-danger alert-dismissable fade in\">
-						<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
-						<p id=\"msgtext\"><strong>Προσοχή!</strong> Πρέπει να συμπληρωθούν τα απαιτούμενα στοιχεία</p>
-					</div>";
+		$user->showMessage("alert-danger","<strong>Προσοχή!</strong> Πρέπει να συμπληρωθούν τα απαιτούμενα στοιχεία");
 		echo $this->getUpdateUserForm();
 	} else {
 		if ($user->updateUser($_POST['username'], $_POST['email'], $_POST['epvn'], $_POST['onoma'], $_POST['role'], $_POST['k_f'], $_POST['k_tm'])) {
-			echo "	<div class=\"alert alert-success alert-dismissable fade in\">
-							<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
-							<p id=\"msgtext\"><strong>Επιτυχής καταχώριση!</strong> Τα στοιχεία του χρήστης με username <strong>".$_POST['username']."</strong> ενημερώθηκαν.</p>
-						</div>";
+			$user->showMessage("alert-success","<strong>Επιτυχής καταχώριση!</strong> Τα στοιχεία του χρήστης με username <strong>".$_POST['username']."</strong> ενημερώθηκαν.");
 			echo $user->getMenu();
 		} else {
-			echo "	<div class=\"alert alert-danger alert-dismissable fade in\">
-							<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
-							<p id=\"msgtext\"><strong>Σφάλμα!</strong> Παρουσιάστηκε σφάλμα κατά την ενημέρωση των στοιχείων του χρήστη με username <strong>".$_POST['username']."</strong>.</p>
-						</div>";
+			$user->showMessage("alert-warning","<strong>Σφάλμα!</strong> Παρουσιάστηκε σφάλμα κατά την ενημέρωση των στοιχείων του χρήστη με username <strong>".$_POST['username']."</strong>.");
 		}
 	}
 }

@@ -13,10 +13,7 @@ if (!$user->isConnected()) {
 
 	if (!$validInput) {
 		echo $user->getNavBar();
-		echo "	<div id=\"msg\" class=\"alert alert-danger alert-dismissable fade in\">
-						<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
-						<p id=\"msgtext\"><strong>Προσοχή!</strong> Πρέπει να συμπληρωθούν τα απαιτούμενα στοιχεία</p>
-					</div>";
+		$user->showMessage("alert-danger","<strong>Προσοχή!</strong> Πρέπει να συμπληρωθούν τα απαιτούμενα στοιχεία");
 		echo $user->getLoginForm();
 	} else {
 		
@@ -24,18 +21,12 @@ if (!$user->isConnected()) {
 		
 		if ($user->getId() == null) {
 			echo $user->getNavBar();
-			echo"	<div class=\"alert alert-danger alert-dismissable fade in\">
-							<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
-							<p id=\"msgtext\"><strong>Σφάλμα!</strong> Το όνομα χρήστη ή ο κωδικός είναι λάθος</p>
-						</div>";
+			$user->showMessage("alert-danger","<strong>Προσοχή!</strong> Το όνομα χρήστη ή ο κωδικός είναι λάθος");
 			echo $user->getLoginForm();
 		} else {
 			if (!$user->isActive()){
 				echo $user->getNavBar();
-				echo "	<div class=\"alert alert-warning alert-dismissable fade in\">
-								<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
-								<p id=\"msgtext\"><strong>Σφάλμα!</strong> Δεν έχετε ενεργοποιήσει τον λογαριασμό. Ενεργοποιήστε τον λογαριασμό μέσω του συνδέσμου που σας έχει σταλεί στο ηλεκτρονικό σας ταχυδρομείο με διεύθυνση ".$user->getEmail()."</p>
-							</div>";
+				$user->showMessage("alert-danger","<strong>Προσοχή!</strong> Δεν έχετε ενεργοποιήσει τον λογαριασμό. Ενεργοποιήστε τον λογαριασμό μέσω του συνδέσμου που σας έχει σταλεί στο ηλεκτρονικό σας ταχυδρομείο με διεύθυνση ".$user->getEmail());
 				echo $user->getLoginForm();
 			} else {
 				if (isset($_POST['remember']) && !empty($_POST['remember'])) {
